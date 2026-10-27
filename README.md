@@ -29,7 +29,8 @@ Google Colab with NVCC Compiler
 6. Copy output data from the device to the host and verify the results against the host's sequential vector addition. Free memory on the host and the device.
 
 ## PROGRAM:
-%%writefile vector_add.cu
+
+    %%writefile vector_add.cu
 #include <cuda_runtime.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,7 +39,7 @@ Google Colab with NVCC Compiler
 #include <time.h>
 #include <sys/time.h>
 
-
+// CUDA error checking macro
 #define CHECK(call)                                                   \
 {                                                                     \
     const cudaError_t error = call;                                   \
@@ -51,7 +52,7 @@ Google Colab with NVCC Compiler
     }                                                                 \
 }
 
-
+// Timer function
 double seconds()
 {
     struct timeval tp;
@@ -59,7 +60,7 @@ double seconds()
     return ((double)tp.tv_sec + (double)tp.tv_usec * 1.0e-6);
 }
 
-
+// Compare CPU and GPU results
 void checkResult(float *hostRef, float *gpuRef, const int N)
 {
     double epsilon = 1.0E-5;
@@ -81,7 +82,7 @@ void checkResult(float *hostRef, float *gpuRef, const int N)
         printf("Arrays match.\n\n");
 }
 
-
+// Initialize array with random values
 void initialData(float *ip, int size)
 {
     srand((unsigned)time(NULL));
@@ -92,6 +93,7 @@ void initialData(float *ip, int size)
     }
 }
 
+// CPU vector addition
 void sumArraysOnHost(float *A, float *B, float *C, const int N)
 {
     for (int i = 0; i < N; i++)
@@ -99,6 +101,8 @@ void sumArraysOnHost(float *A, float *B, float *C, const int N)
         C[i] = A[i] + B[i];
     }
 }
+
+// GPU kernel
 __global__ void sumArraysOnGPU(float *A, float *B, float *C, const int N)
 {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
