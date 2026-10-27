@@ -29,6 +29,7 @@ Google Colab with NVCC Compiler
 6. Copy output data from the device to the host and verify the results against the host's sequential vector addition. Free memory on the host and the device.
 
 ## PROGRAM:
+```
 
     %%writefile vector_add.cu
 #include <cuda_runtime.h>
@@ -196,6 +197,7 @@ int main()
 
     return 0;
 }
+```
 ## OUTPUT:
 <img width="1143" height="356" alt="WhatsApp Image 2026-10-27 at 14 07 02" src="https://github.com/user-attachments/assets/74cdd44d-8e6b-4539-af73-8b574d71e800" />
 
